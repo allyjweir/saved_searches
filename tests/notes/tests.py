@@ -1,5 +1,9 @@
-from django.contrib.auth import get_user_model as user_model
-User = user_model()
+from django.conf import settings
+try:
+    from django.contrib.auth import get_user_model
+    User = settings.AUTH_USER_MODEL
+except ImportError:
+    from django.contrib.auth.models import User
 from django.template import Template, Context
 from django.test import TestCase
 from saved_searches.models import SavedSearch

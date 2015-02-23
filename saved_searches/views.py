@@ -1,7 +1,10 @@
 import datetime
 from django.conf import settings
-from django.contrib.auth import get_user_model as user_model
-User = user_model()
+try:
+    from django.contrib.auth import get_user_model
+    User = settings.AUTH_USER_MODEL
+except ImportError:
+    from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 from django.shortcuts import render_to_response, get_object_or_404

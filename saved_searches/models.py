@@ -1,8 +1,11 @@
 import datetime
-from django.contrib.auth import get_user_model as user_model
-User = user_model()
 from django.db import models
-
+from django.conf import settings
+try:
+    from django.contrib.auth import get_user_model
+    User = settings.AUTH_USER_MODEL
+except ImportError:
+    from django.contrib.auth.models import User
 
 class SavedSearchManager(models.Manager):
     def most_recent(self, user=None, search_key=None, collapsed=True, threshold=1):
